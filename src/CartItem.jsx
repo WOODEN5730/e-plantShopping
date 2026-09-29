@@ -11,14 +11,11 @@ const CartItem = ({ onContinueShopping }) => {
   const parseCost = (costString) => Number(costString.replace(/[^0-9.]/g, ""));
 
   const calculateTotalAmount = () =>
-    cart.reduce((total, item) => total + parseCost(item.cost) * item.quantity, 0);
+    cart.reduce((total, item) => total + parseFloat(item.cost.substring(1)) * item.quantity, 0);
 
   const calculateTotalCost = (item) =>
     parseCost(item.cost) * item.quantity;
 
-//   const handleAddToCart = (product) => {
-//   dispatch(addItem(product));
-// };
   const handleIncrement = (item) => {
     dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
   };
@@ -32,9 +29,13 @@ const CartItem = ({ onContinueShopping }) => {
   const handleRemove = (item) => {
     dispatch(removeItem(item.name));
   };
+  const handleCheckoutShopping = (e) => {
+  alert('Functionality to be added for future reference');
+};
+
 
   return (
-    <div className="cart-container">
+    <div className="cart-container">f
       <h2 style={{ color: "black" }}>
         Total Cart Amount: ${calculateTotalAmount().toFixed(2)}
       </h2>
@@ -43,7 +44,7 @@ const CartItem = ({ onContinueShopping }) => {
         {cart.map((item) => (
           <div className="cart-item" key={item.name}>
             <img className="cart-item-image" src={item.image} alt={item.name} />
-
+            {item.cost}
             <div className="cart-item-details">
               <div className="cart-item-name">{item.name}</div>
               <div className="cart-item-cost">{item.cost}</div>
